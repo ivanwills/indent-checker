@@ -4,7 +4,7 @@
   "description": "Check indentation matches specified rules",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- test/"
   },
   "keywords": [
     "indentation",
@@ -12,5 +12,11 @@
     "spaces"
   ],
   "author": "Ivan Wills",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "assert": "^1.4.1",
+    "coveralls": "^2.11.12",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.0.2"
+  }
 }
