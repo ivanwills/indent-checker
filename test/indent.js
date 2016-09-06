@@ -1,7 +1,7 @@
 /* global require, describe, it */
 
 var assert = require('assert')
-	indent = require('index');
+	indent = require('../index');
 
 describe('Good lines of text', function () {
 
