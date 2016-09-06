@@ -9,7 +9,7 @@ function textOk (text, config) {
 			if (line.match(/^\t+ |^ +\t/)) {
 				throw "Mixed tabs and spaces on indent!";
 			}
-		} catch () {
+		} catch (e) {
 			return false;
 		}
 
@@ -17,7 +17,7 @@ function textOk (text, config) {
 	});
 };
 
-module.export = {
+module.exports = {
 	textOk: textOk,
 	fileOk: function (file, config) {
 		return textOk(fs.readFileSync(file, 'utf-8'), config);
