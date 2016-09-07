@@ -12,12 +12,12 @@ function assertIndent (text, config) {
 	_.each(text.split(/\n/), function (line, lineNo) {
 		if (indents === 'tabs') {
 			if (line.match(/^ /)) {
-				throw 'Using spaces in a file indented with tabs, starting line ' + lineNo + '!';
+				throw 'Using spaces in a file indented with tabs, starting line ' + (lineNo + 1) + '!';
 			}
 		}
 		else if (indents === 'spaces') {
 			if (line.match(/^\t/)) {
-				throw 'Using tabs in a file indented with spaces, starting line ' + lineNo + '!';
+				throw 'Using tabs in a file indented with spaces, starting line ' + (lineNo + 1) + '!';
 			}
 		}
 		else if (line.match(/^\s+/)) {
@@ -28,7 +28,7 @@ function assertIndent (text, config) {
 
 		// always check for mixed indentation
 		if (line.match(/^\t+ |^ +\t/)) {
-			throw 'Mixed tabs and spaces for indentation on line ' + lineNo + '!';
+			throw 'Mixed tabs and spaces for indentation on line ' + (lineNo + 1) + '!';
 		}
 	});
 }
