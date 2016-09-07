@@ -44,7 +44,7 @@ function textOk (text, config) {
 };
 
 module.exports = {
-	ssertIndent: assertIndent,
+	assertIndent: assertIndent,
 	textOk: textOk,
 	fileOk: function (file, config) {
 		return textOk(fs.readFileSync(file, 'utf-8'), config);
