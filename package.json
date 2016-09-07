@@ -11,7 +11,12 @@
     "tabs",
     "spaces"
   ],
-  "author": "Ivan Wills",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ivanwills/indent-checker.git"
+  },
+  "bugs": "https://github.com/ivanwills/indent-checker/issues",
+  "author": "Ivan Wills <ivan.wills@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "assert": "^1.4.1",
