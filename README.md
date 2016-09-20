@@ -11,7 +11,7 @@ Simple library to test if file indentation rules are being met
 Version
 =======
 
-This documentation refers to indent-checker verions 0.1.0
+This documentation refers to indent-checker verions 0.2.2
 
 Synopsis
 ========
