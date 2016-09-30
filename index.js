@@ -8,9 +8,10 @@ function assertIndent (text, config) {
 		config = {};
 	}
 	var indents = config.type || false;
+	var indentMatch = config.jsdoc ? /^(\s*?)( [*])?/ : /^(\s+)/;
 
 	_.each(text.split(/\n/), function (line, lineNo) {
-		var match  = line.match(/^(\s+)/);
+		var match  = line.match(indentMatch);
 		if (!match) {
 			// skip lines with no indentation
 			return;
