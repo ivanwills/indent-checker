@@ -67,11 +67,21 @@ describe('Asserting text status', () => {
 			/^Using spaces/,
 			'Error thrown for explicitely tab indented text'
 		);
+		assert.throws(
+			() => indent.assertIndent('\t A line\n', {type: 'tabs'}),
+			/^Using spaces/,
+			'Error thrown for explicitely tab indented text with mixed tabs and spaces'
+		);
 
 		assert.throws(
 			() => indent.assertIndent('\tA line\n', {type: 'spaces'}),
 			/^Using tabs/,
 			'Error thrown for explicitely space indented text'
+		);
+		assert.throws(
+			() => indent.assertIndent(' \tA line\n', {type: 'spaces'}),
+			/^Using tabs/,
+			'Error thrown for explicitely space indented text with mixed tabs and spaces'
 		);
 	});
 });
