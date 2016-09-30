@@ -10,24 +10,31 @@ function assertIndent (text, config) {
 	var indents = config.type || false;
 
 	_.each(text.split(/\n/), function (line, lineNo) {
+		var match  = line.match(/^(\s+)/);
+		if (!match) {
+			// skip lines with no indentation
+			return;
+		}
+		var indent = match[1];
+
 		if (indents === 'tabs') {
-			if (line.match(/^ /)) {
+			if (indent.match(/ /)) {
 				throw 'Using spaces in a file indented with tabs, starting line ' + (lineNo + 1) + '!';
 			}
 		}
 		else if (indents === 'spaces') {
-			if (line.match(/^\t/)) {
+			if (indent.match(/\t/)) {
 				throw 'Using tabs in a file indented with spaces, starting line ' + (lineNo + 1) + '!';
 			}
 		}
-		else if (line.match(/^\s+/)) {
+		else {
 			// set the default indent style for the text when we first see
 			// an indented line
 			indents = line.match(/^\t/) ? 'tabs' : 'spaces';
 		}
 
 		// always check for mixed indentation
-		if (line.match(/^\t+ |^ +\t/)) {
+		if (indent.match(/\t+ | +\t/)) {
 			throw 'Mixed tabs and spaces for indentation on line ' + (lineNo + 1) + '!';
 		}
 	});
