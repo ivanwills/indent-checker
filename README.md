@@ -35,3 +35,19 @@ Description
 *indent-checker* is a library to check that text/files follow indentation
 rules. The default rule is that no line should mix indentation syles eg have
 both tabs and spaces on a line.
+
+Configuration
+=============
+
+* type - the type of indentation to be supported
+  * tabs - only allow indentation with tabs
+  * spaces - only allow space indentation
+  * undenfied or false - only allow one type of indentation in a file (no mixed indentation)
+* jsdoc - allow the common style of documentation where multi line
+documentation is a single space indented
+
+```javascript
+	/**
+	 * With space indentation this style wont fail.
+	 */
+```
