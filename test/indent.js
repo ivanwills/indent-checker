@@ -32,6 +32,15 @@ describe('Mixed lines of text', () => {
 	});
 });
 
+describe('Documentation type', () => {
+	it('Jsdoc style documentation should be allowed', () => {
+		assert.equal(indent.textOk('\t * indented some doc\n'), false);
+		assert.equal(indent.textOk('  * some doc\n', {jsdoc: true}), true);
+		assert.equal(indent.textOk(' * some doc\n', {jsdoc: true, type: 'tabs'}), true);
+		assert.equal(indent.textOk('\t * indented some doc\n', {jsdoc: true}), true);
+	});
+});
+
 describe('Asserting text status', () => {
 	it('Good text', () => {
 		assert.doesNotThrow(() => indent.assertIndent('A line\n space sepparated\n'), 'No error thrown for good text with space indents');
