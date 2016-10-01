@@ -33,11 +33,17 @@ describe('Mixed lines of text', () => {
 });
 
 describe('Documentation type', () => {
-	it('Jsdoc style documentation should be allowed', () => {
+	it('Jsdoc style documentation should not be allowed', () => {
 		assert.equal(indent.textOk('\t * indented some doc\n'), false);
+	});
+	it('Jsdoc style documentation should be allowed', () => {
 		assert.equal(indent.textOk('  * some doc\n', {jsdoc: true}), true);
 		assert.equal(indent.textOk(' * some doc\n', {jsdoc: true, type: 'tabs'}), true);
 		assert.equal(indent.textOk('\t * indented some doc\n', {jsdoc: true}), true);
+	});
+	it('Jsdoc style documentation should be allowed, with bad indents', () => {
+		assert.equal(indent.textOk('  * some doc\n', {type: 'tabs', jsdoc: true}), false);
+		assert.equal(indent.textOk(' some doc\n', {type: 'tabs', jsdoc: true}), false);
 	});
 });
 

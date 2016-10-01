@@ -8,11 +8,11 @@ function assertIndent (text, config) {
 		config = {};
 	}
 	var indents = config.type || false;
-	var indentMatch = config.jsdoc ? /^(\s*?)( [*])?/ : /^(\s+)/;
+	var indentMatch = config.jsdoc ? /^(\s*)(?![*])/ : /^(\s+)/;
 
 	_.each(text.split(/\n/), function (line, lineNo) {
 		var match  = line.match(indentMatch);
-		if (!match) {
+		if (!match || !match[1]) {
 			// skip lines with no indentation
 			return;
 		}
