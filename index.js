@@ -69,7 +69,7 @@ function assertIndent (text, config) {
 		// always check for mixed indentation
 		if (indent.match(/\t+ | +\t/)) {
 			if (config.quick) {
-				throw 'Mixed tabs and spaces for indentation on line ' + (lineNo + 1) + '!';
+				throw 'Mixing tabs and spaces for indentation on line ' + (lineNo + 1) + '!';
 			}
 			errors = addError(errors, 'mixed', lineNo + 1, 'Mixing tabs and spaces');
 		}
