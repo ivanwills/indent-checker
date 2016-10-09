@@ -3,12 +3,38 @@
 var _  = require('lodash'),
 	fs = require('fs');
 
+function IndentError (details) {
+	_.each(details, function (value, key) {
+		this[key] = value;
+	}.bind(this));
+}
+IndentError.prototype.toString = function () { return this.message; };
+
+function addError (error, type, line, message) {
+	if (error) {
+		if (!error[type]) {
+			error[type] = [];
+		}
+		error[type].push(line);
+		error.total++;
+
+		return error;
+	}
+	error = new IndentError({
+		total: 1,
+		message: message
+	});
+	error[type] = [line];
+	return error;
+}
+
 function assertIndent (text, config) {
 	if (!config) {
 		config = {};
 	}
 	var indents = config.type || false;
 	var indentMatch = config.jsdoc ? /^(\s*)(?![*])/ : /^(\s+)/;
+	var errors;
 
 	_.each(text.split(/\n/), function (line, lineNo) {
 		var match  = line.match(indentMatch);
@@ -20,12 +46,18 @@ function assertIndent (text, config) {
 
 		if (indents === 'tabs') {
 			if (indent.match(/ /)) {
-				throw 'Using spaces in a file indented with tabs, starting line ' + (lineNo + 1) + '!';
+				if (config.quick) {
+					throw 'Using spaces in a file indented with tabs, starting line ' + (lineNo + 1) + '!';
+				}
+				errors = addError(errors, 'spaces', lineNo + 1, 'Using spaces in a file indented with tabs');
 			}
 		}
 		else if (indents === 'spaces') {
 			if (indent.match(/\t/)) {
-				throw 'Using tabs in a file indented with spaces, starting line ' + (lineNo + 1) + '!';
+				if (config.quick) {
+					throw 'Using tabs in a file indented with spaces, starting line ' + (lineNo + 1) + '!';
+				}
+				errors = addError(errors, 'tabs', lineNo + 1, 'Using tabs in a file indented with spaces');
 			}
 		}
 		else {
@@ -36,9 +68,16 @@ function assertIndent (text, config) {
 
 		// always check for mixed indentation
 		if (indent.match(/\t+ | +\t/)) {
-			throw 'Mixed tabs and spaces for indentation on line ' + (lineNo + 1) + '!';
+			if (config.quick) {
+				throw 'Mixed tabs and spaces for indentation on line ' + (lineNo + 1) + '!';
+			}
+			errors = addError(errors, 'mixed', lineNo + 1, 'Mixing tabs and spaces');
 		}
 	});
+
+	if (errors) {
+		throw errors;
+	}
 }
 
 function textOk (text, config) {
