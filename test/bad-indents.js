@@ -73,8 +73,13 @@ describe('Asserting text status', () => {
 			'Error thrown for initally tab indented text'
 		);
 		assert.throws(
-			() => indent.assertIndent(' A line\n\ttab sepparated\n'),
+			() => indent.assertIndent(' A line\n\ttab sepparated\n\t\tsecond\n'),
 			/^Using tabs/,
+			'Error thrown for initally tab indented text'
+		);
+		assert.throws(
+			() => indent.assertIndent(' \tA line\n\ttab sepparated\n'),
+			/^Mixing tabs and spaces/,
 			'Error thrown for initally tab indented text'
 		);
 
