@@ -54,49 +54,4 @@ describe('Asserting text status', () => {
 		assert.doesNotThrow(() => indent.assertIndent('A line\n\ttab sepparated\n'), 'No error thrown for good text with tab indents');
 		assert.doesNotThrow(() => indent.assertIndent('\t\tA line\n\ttab sepparated\n'), 'No error thrown for good text with tab indents');
 	});
-
-	it('Bad text', () => {
-		assert.throws(
-			() => indent.assertIndent('\tA line\n space sepparated\n'),
-			/^Using spaces/,
-			'Error thrown for initally tab indented text'
-		);
-		assert.throws(
-			() => indent.assertIndent('\tA line\n \tspace sepparated\n'),
-			/^Using spaces/,
-			'Error thrown for initally tab indented text'
-		);
-		assert.throws(
-			() => indent.assertIndent(' A line\n\ttab sepparated\n'),
-			/^Using tabs/,
-			'Error thrown for initally tab indented text'
-		);
-		assert.throws(
-			() => indent.assertIndent(' A line\n\ttab sepparated\n'),
-			/^Using tabs/,
-			'Error thrown for initally tab indented text'
-		);
-
-		assert.throws(
-			() => indent.assertIndent(' A line\n', {type: 'tabs'}),
-			/^Using spaces/,
-			'Error thrown for explicitely tab indented text'
-		);
-		assert.throws(
-			() => indent.assertIndent('\t A line\n', {type: 'tabs'}),
-			/^Using spaces/,
-			'Error thrown for explicitely tab indented text with mixed tabs and spaces'
-		);
-
-		assert.throws(
-			() => indent.assertIndent('\tA line\n', {type: 'spaces'}),
-			/^Using tabs/,
-			'Error thrown for explicitely space indented text'
-		);
-		assert.throws(
-			() => indent.assertIndent(' \tA line\n', {type: 'spaces'}),
-			/^Using tabs/,
-			'Error thrown for explicitely space indented text with mixed tabs and spaces'
-		);
-	});
 });
